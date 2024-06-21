@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from "vue";
+
 const name = 'Dinamic Vue'
 const style = 'font-size: 100px; font-weight: bold; color: pink'
 const arrayColors = ['Hotpink', 'Turquoise', 'Gold']
@@ -25,26 +27,25 @@ const arrayObjetos =
       stock: 20,
     }
   ]
-
-  //Methods
-  const hadleClick = (message) => {
-    console.log(message)
-  }
-
-  const increment = () => {
-    console.log('Increment');
-    counter ++;
-    console.log(counter)
-  }
-
-  let counter = 0
-
-const arrayObjetosUnico =
+  const arrayObjetosUnico =
 {
   name: "Manzana",
   price: "$1.00",
   description: "Una manzana",
 }
+  //Methods
+  const hadleClick = (message) => {
+    console.log(message)
+  }
+
+  const counter = ref(0)
+
+  const increment = () => counter.value ++;
+
+  const decrement = () => counter.value --;
+
+  const reset = () => counter.value = 0;
+  
 </script>
 
 <template>
@@ -111,7 +112,9 @@ const arrayObjetosUnico =
 
    <div>
     <button @click="increment">Aumentar</button>
-    <p>{{ counter }}</p>
+    <button @click="decrement">Decrementar</button>
+    <button @click="reset">Reset</button>
+    <p :style="{color: counter > 0 ? 'green' : (counter == 0) ? 'black' : 'red'}"> {{ counter }}</p>
    </div>
 
 
